@@ -3,9 +3,9 @@ module "vpc" {
 }
 
 resource "aws_vpc" "hello-world" {
-  vpc_name       = var.vpc_name
-  cidr_block       = var.cidr
-  instance_tenancy = "default"
+  vpc_name             = var.vpc_name
+  cidr_block           = var.cidr
+  instance_tenancy     = "default"
   enable_dns_hostnames = true
   enable_dns_support   = true
 
@@ -18,7 +18,7 @@ resource "aws_vpc" "hello-world" {
 resource "aws_internet_gateway" "hello-world-igw" {
   vpc_id = aws_vpc.vpc.id
   tags = {
-    Name        = "var.vpc_name-igw"
+    Name = "var.vpc_name-igw"
   }
 }
 
@@ -31,7 +31,7 @@ resource "aws_subnet" "public_subnet" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name        = "${var.vpc_name}-${element(var.availability_zones, count.index)}-public-subnet"
+    Name = "${var.vpc_name}-${element(var.availability_zones, count.index)}-public-subnet"
   }
 }
 
@@ -45,6 +45,6 @@ resource "aws_subnet" "private_subnet" {
   map_public_ip_on_launch = false
 
   tags = {
-    Name        = "${var.vpc_name}-${element(var.availability_zones, count.index)}-private-subnet"
+    Name = "${var.vpc_name}-${element(var.availability_zones, count.index)}-private-subnet"
   }
 }
