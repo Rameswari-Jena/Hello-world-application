@@ -15,7 +15,7 @@ data "terraform_remote_state" "vpc-subnets" {
 resource "aws_security_group" "lb_sg" {
   name        = "${var.security_group_name}-lb_sg"
   description = "hello-world-lb-sg"
-  vpc_id      = data.terraform_remote_state.vpc-subnets.outputs.vpc_id
+  vpc_id      = data.terraform_remote_state.vpc-subnets.outputs.vpc.vpc_id
   tags = {
     Name = "internal-alb-sg"
   }
@@ -25,7 +25,7 @@ resource "aws_security_group" "lb_sg" {
 resource "aws_security_group" "web_sg" {
   name        = "${var.security_group_name}-web-sg"
   description = "hello-world-web-sg"
-  vpc_id      = data.terraform_remote_state.vpc-subnets.outputs.vpc_id
+  vpc_id      = data.terraform_remote_state.vpc-subnets.outputs.vpc.vpc_id
   tags = {
     Name = "web-sg"
   }
@@ -35,7 +35,7 @@ resource "aws_security_group" "web_sg" {
 resource "aws_security_group" "app_sg" {
   name        = "${var.security_group_name}-app-sg"
   description = "hello-world-app-sg"
-  vpc_id      = data.terraform_remote_state.vpc-subnets.outputs.vpc_id
+  vpc_id      = data.terraform_remote_state.vpc-subnets.outputs.vpc.vpc_id
   tags = {
     Name = "app-sg"
   }
@@ -45,7 +45,7 @@ resource "aws_security_group" "app_sg" {
 resource "aws_security_group" "database_sg" {
   name        = "${var.security_group_name}-database-sg"
   description = "hello-world-database-sg"
-  vpc_id      = data.terraform_remote_state.vpc-subnets.outputs.vpc_id
+  vpc_id      = data.terraform_remote_state.vpc-subnets.outputs.vpc.vpc_id
   tags = {
     Name = "database-sg"
   }

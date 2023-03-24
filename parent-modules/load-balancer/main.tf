@@ -27,7 +27,7 @@ resource "aws_lb" "alb" {
   security_groups    = [data.terraform_remote_state.security-group.outputs.alb_security_group_id]
   subnets             = [var.private_subnets_1, var.private_subnets_2]
 
-  enable_deletion_protection = true
+  enable_deletion_protection = false
 
   tags = {
     Name = "Hello-world-LB"
@@ -39,7 +39,7 @@ resource "aws_lb_target_group" "web_target_group" {
   target_type = "instance"
   port        = 80
   protocol    = "HTTP"
-  vpc_id      = data.terraform_remote_state.vpc-subnets.outputs.vpc_id
+  vpc_id      = data.terraform_remote_state.vpc-subnets.outputs.vpc.vpc_id
 
   health_check {
     enabled             = true
@@ -57,7 +57,7 @@ resource "aws_lb_target_group" "app_target_group" {
   target_type = "instance"
   port        = 80
   protocol    = "HTTP"
-  vpc_id      = data.terraform_remote_state.vpc-subnets.outputs.vpc_id
+  vpc_id      = data.terraform_remote_state.vpc-subnets.outputs.vpc.vpc_id
 
   health_check {
     enabled             = true
