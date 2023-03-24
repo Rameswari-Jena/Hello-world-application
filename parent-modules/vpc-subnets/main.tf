@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 module "vpc" {
-  source               = "../../modules/vpc-subnets"
+  source               = "../../child-modules/vpc-subnets"
   project-name         = var.project-name
   vpc-cidr             = var.vpc-cidr
   availability_zones   = var.availability_zones
