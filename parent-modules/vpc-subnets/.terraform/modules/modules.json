@@ -1,1 +1,1 @@
-{"Modules":[{"Key":"vpc","Source":"../../modules/vpc-subnets","Dir":"../../modules/vpc-subnets"},{"Key":"","Source":"","Dir":"."}]}
+{"Modules":[{"Key":"","Source":"","Dir":"."},{"Key":"vpc","Source":"../../child-modules/vpc-subnets","Dir":"../../child-modules/vpc-subnets"}]}

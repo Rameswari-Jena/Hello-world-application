@@ -1,6 +1,6 @@
 variable "project-name" {
   type        = string
-  description = "name of the security group takes project name"
+  description = "name of the security group takes the project name"
 }
 
 variable "vpc_cidr" {
