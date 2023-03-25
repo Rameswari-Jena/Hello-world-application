@@ -28,7 +28,7 @@ variable "public_subnet_names" {
   description = "name of private subnets"
 }
 
-variable "private_subnet_names" {
+/*variable "private_subnet_names" {
   type        = list(string)
   description = "name of private subnets"
-}
+}*/
