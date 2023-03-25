@@ -1,6 +1,6 @@
 variable "project-name" {
   type        = string
-  description = "name of the load balancer"
+  description = "name of the load balancer takes the name of the project"
 }
 
 variable "app_private_subnets_1" {
