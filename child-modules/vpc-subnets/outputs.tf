@@ -1,3 +1,5 @@
+# Define the variables of vpc, subnets, igw & RT which we want as outputs, to use it with other modules
+
 output "vpc_id" {
   value = aws_vpc.testvpc.id
 }

@@ -1,3 +1,4 @@
+# Define all the variables to create vpc, subnets, igw & RT
 variable "project-name" {
   type        = string
   description = "name of the vpc"
