@@ -2,6 +2,8 @@ output "lambda_function_1_name" {
   value = aws_lambda_function.hello_world_lambda_stop_ec2.function_name
 }
 
+# Define the variables of lambda functions which we want as outputs, to use it with other modules
+
 output "lambda_function_1_id" {
   value = aws_lambda_function.hello_world_lambda_stop_ec2.id
 }
