@@ -36,10 +36,8 @@ IAM(Role,policy & Instance Profile) Module (to allow SSM to manage EC2:
 
 Auto-scaling Group Module:
   1. Define remote state of load-balancer, IAM, security groups, Amazon AMIs in data block , to use its output in launch-configuration & autoscaling configurations
-  2. create launch configuration for web server 
-        created shell script to install httpd in web server
-  3. create launch configuration for app server
-        created shell script to install httpd and create Hello World Index.html file in app server
+  2. create launch configuration for web server and created shell script to install httpd in web server
+  3. create launch configuration for app server and created shell script to install httpd and create Hello World Index.html file in app server
   4. Create web server ASG out of web server launch configuration
   5. Create app server ASG out of app server launch configuration
   6. Create an ALB app Target Group attachment with app ASG
