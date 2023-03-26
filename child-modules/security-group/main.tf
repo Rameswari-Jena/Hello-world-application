@@ -2,6 +2,7 @@ provider "aws" {
   region = "us-east-1"
 }
 
+# Refer to the terraform state of vpc in data block, to use the output variable values vpc & subnets while creating the security group parameters
 data "terraform_remote_state" "vpc-subnets" {
   backend = "s3"
   config = {
@@ -11,7 +12,7 @@ data "terraform_remote_state" "vpc-subnets" {
   }
 }
 
-###load balancer security group ###
+### Create Load balancer security group ###
 resource "aws_security_group" "alb_sg" {
   name        = "${var.project-name}-alb_sg"
   description = "hello-world-lb-sg"
@@ -21,7 +22,7 @@ resource "aws_security_group" "alb_sg" {
   }
 }
 
-### web server security group ###
+### Create web server security group ###
 resource "aws_security_group" "web_sg" {
   name        = "${var.project-name}-web-sg"
   description = "hello-world-web-sg"
@@ -31,7 +32,7 @@ resource "aws_security_group" "web_sg" {
   }
 }
 
-### app server security group ###
+### Create app server security group ###
 resource "aws_security_group" "app_sg" {
   name        = "${var.project-name}-app-sg"
   description = "hello-world-app-sg"
@@ -41,7 +42,7 @@ resource "aws_security_group" "app_sg" {
   }
 }
 
-### database server security group ###
+### Create database server security group ###
 resource "aws_security_group" "database_sg" {
   name        = "${var.project-name}-db-sg"
   description = "hello-world-database-sg"
@@ -50,7 +51,7 @@ resource "aws_security_group" "database_sg" {
     Name = "${var.project-name}-db-sg"
   }
 }
-###------------------------------security group rules---------------------------------------###
+###------------------------------Create security group rules for all the security groups---------------------------------------###
 
 ### web server security group rule ###
 resource "aws_security_group_rule" "internet-to-web-https-ingress" {

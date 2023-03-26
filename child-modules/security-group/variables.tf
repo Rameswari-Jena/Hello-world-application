@@ -1,3 +1,5 @@
+# Define variables required to create the security groups & rules
+
 variable "project-name" {
   type        = string
   description = "name of the security group takes the project name"
