@@ -51,16 +51,10 @@ resource "aws_launch_configuration" "web-server-lc" {
   instance_type = "t2.micro"
   security_groups = [data.terraform_remote_state.security_group.outputs.security_group.web_security_group_id]
   iam_instance_profile = data.terraform_remote_state.iam.outputs.iam.instance_profile_arn
-  user_data     = <<-EOF
-              #!/bin/bash
-              sudo yum update -y
-              sudo yum install apache2 -y
-              sudo systemctl start apache2
-              sudo bash -c 'echo This is the web server > /var/www/html/index.html'
-              EOF
+  user_data     = file("web_user_data.sh")
 
   lifecycle {
-    create_before_destroy = true
+    create_before_destroy = false
   }
 }
 
@@ -70,24 +64,18 @@ resource "aws_launch_configuration" "app-server-lc" {
   instance_type = "t2.micro"
   security_groups = [data.terraform_remote_state.security_group.outputs.security_group.app_security_group_id]
   iam_instance_profile = data.terraform_remote_state.iam.outputs.iam.instance_profile_arn
-  user_data     = <<-EOF
-              #!/bin/bash
-              sudo yum update -y
-              sudo yum install apache2 -y
-              sudo systemctl start apache2
-              sudo bash -c 'echo Hello World > /var/www/html/index.html'
-              EOF
+  user_data     = file("app_user_data.sh")
 
   lifecycle {
-    create_before_destroy = true
+    create_before_destroy = false
   }
 }
 
 ### web server ASG ###
 resource "aws_autoscaling_group" "web-asg" {
   name                      = "web-ASG"
-  launch_configuration      = aws_launch_configuration.web-server-lc.name
-  min_size                  = 1
+  launch_configuration = aws_launch_configuration.web-server-lc.id
+  min_size                  = 0
   max_size                  = 5
   desired_capacity          = 1
   health_check_grace_period = 300
@@ -107,8 +95,8 @@ resource "aws_autoscaling_group" "web-asg" {
 ### app server ASG ###
 resource "aws_autoscaling_group" "app-asg" {
   name                      = "app-ASG"
-  launch_configuration      = aws_launch_configuration.app-server-lc.name
-  min_size                  = 1
+  launch_configuration = aws_launch_configuration.app-server-lc.id
+  min_size                  = 0
   max_size                  = 5
   desired_capacity          = 1
   health_check_grace_period = 300
