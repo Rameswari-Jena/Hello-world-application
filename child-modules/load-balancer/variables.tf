@@ -1,3 +1,4 @@
+# Define variables required to create the load balancer,target group & listener
 variable "project-name" {
   type        = string
   description = "name of the load balancer takes the name of the project"

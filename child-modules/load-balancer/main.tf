@@ -2,6 +2,7 @@ provider "aws" {
   region = "us-east-1"
 }
 
+# Define remote state of security groups in data block , to use its output in load balancer configurations
 data "terraform_remote_state" "security-group" {
   backend = "s3"
   config = {
@@ -11,6 +12,7 @@ data "terraform_remote_state" "security-group" {
   }
 }
 
+# Define remote state of vpc & subnets in data block , to use its output in load balancer configurations
 data "terraform_remote_state" "vpc-subnets" {
   backend = "s3"
   config = {
@@ -20,6 +22,7 @@ data "terraform_remote_state" "vpc-subnets" {
   }
 }
 
+#create internal ALB in private subnets where application tier remains
 resource "aws_lb" "alb" {
   name               = "${var.project-name}-alb"
   internal           = true
@@ -75,7 +78,7 @@ resource "aws_lb_target_group" "app_target_group" {
   }
 }
 
-### create a listener on port 80 with fixed response action ###
+### create a listener on port 80 with forward action ###
 
 resource "aws_lb_listener" "alb_http_listener" {
   load_balancer_arn = aws_lb.alb.arn

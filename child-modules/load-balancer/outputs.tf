@@ -1,3 +1,4 @@
+# Define the variables of load-balancer, target group & listener which we want as outputs, to use it with other modules
 output "alb_id" {
   value = aws_lb.alb.id
 }
