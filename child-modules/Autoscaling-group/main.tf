@@ -2,6 +2,7 @@ provider "aws" {
   region = "us-east-1"
 }
 
+# Define remote state of load-balancer in data block , to use its output in launch-configuration & autoscaling configurations
 data "terraform_remote_state" "load-balancer" {
   backend = "s3"
   config = {
@@ -11,6 +12,7 @@ data "terraform_remote_state" "load-balancer" {
   }
 }
 
+# Define remote state of IAM in data block , to use its output in launch-configuration & autoscaling configurations
 data "terraform_remote_state" "iam" {
   backend = "s3"
   config = {
@@ -20,6 +22,7 @@ data "terraform_remote_state" "iam" {
   }
 }
 
+# Define remote state of security groups in data block , to use its output in launch-configuration & autoscaling configurations
 data "terraform_remote_state" "security_group" {
   backend = "s3"
   config = {
@@ -29,6 +32,7 @@ data "terraform_remote_state" "security_group" {
   }
 }
 
+# Define remote state of Amazon AMI in data block , to use its output value in launch-configuration & autoscaling configurations
 data "aws_ami" "amazon-linux-2" {
   owners      = ["amazon"]
   most_recent = true
@@ -44,7 +48,7 @@ data "aws_ami" "amazon-linux-2" {
   }
 }
 
-### create launch configuration ###
+### create launch configuration for web server ###
 resource "aws_launch_configuration" "web-server-lc" {
   name_prefix   = "hello_world-web-lc"
   image_id      = data.aws_ami.amazon-linux-2.id
@@ -58,6 +62,7 @@ resource "aws_launch_configuration" "web-server-lc" {
   }
 }
 
+### create launch configuration for app server ###
 resource "aws_launch_configuration" "app-server-lc" {
   name_prefix   = "hello_world-app-lc"
   image_id      = data.aws_ami.amazon-linux-2.id
@@ -71,7 +76,7 @@ resource "aws_launch_configuration" "app-server-lc" {
   }
 }
 
-### web server ASG ###
+### Create web server ASG out of web server launch configuration ###
 resource "aws_autoscaling_group" "web-asg" {
   name                      = "web-ASG"
   launch_configuration = aws_launch_configuration.web-server-lc.id
@@ -92,7 +97,7 @@ resource "aws_autoscaling_group" "web-asg" {
 
 ### web asg aatachment with ALB ###
 
-### app server ASG ###
+### Create app server ASG out of app server launch configuration ###
 resource "aws_autoscaling_group" "app-asg" {
   name                      = "app-ASG"
   launch_configuration = aws_launch_configuration.app-server-lc.id
@@ -127,7 +132,7 @@ resource "aws_autoscaling_group" "app-asg" {
   elb                    = data.terraform_remote_state.load-balancer.outputs.load_balancer.alb_id
 }*/
 
-# Create a new ALB Target Group attachment
+# Create an ALB app Target Group attachment with app ASG
 resource "aws_autoscaling_attachment" "app_asg_attachment_app_target_group" {
   autoscaling_group_name = aws_autoscaling_group.app-asg.id
   lb_target_group_arn    = data.terraform_remote_state.load-balancer.outputs.load_balancer.app_target_group_arn

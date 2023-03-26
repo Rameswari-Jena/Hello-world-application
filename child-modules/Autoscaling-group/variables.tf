@@ -1,3 +1,4 @@
+# Define variables required to create the launch_configuration & autoscaling group
 variable "web_public_subnet_1" {
   type        = string
   description = "id of web public subnet 1"
