@@ -51,10 +51,8 @@ IAM-for-lambda Module (to allow lambda to start & stop EC2):
 Lambda-Function Module:
   1. Define remote state of iam-for-lambda role in data block , to use its output in lambda-function configuration
   2. Define location of python scripts in data block , to use it to create lambda-function
-  3. create lambda function to stop EC2 instance at 7PM UTC, everyday (after office hour)
-        created python script to stop the running EC2 instances
-  5. create lambda function to start EC2 instance at 7AM UTC from Monday-Friday (week days office hours)
-        created python script to start the stopped EC2 instances
+  3. create lambda function to stop EC2 instance at 7PM UTC, everyday (after office hour) and created python script to stop the running EC2 instances
+  4. create lambda function to start EC2 instance at 7AM UTC from Monday-Friday (week days office hours) and created python script to start the stopped EC2 instances
         
 Event-Bridge Module:
   1. Define remote state of lambda-function in data block , to use its output in event bridge configurations
