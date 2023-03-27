@@ -20,7 +20,7 @@ resource "aws_iam_role_policy_attachment" "ec2-ssm-iam-policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
 }
 
-#create instance profile to aatach to the launch configuration for creating autoscaling group
+#create instance profile to attach to the launch configuration for creating autoscaling group
 resource "aws_iam_instance_profile" "ec2-ssm-iam-profile" {
   name = "${var.project-name}_ec2_profile"
   role = aws_iam_role.ec2-ssm-iam-role.name
