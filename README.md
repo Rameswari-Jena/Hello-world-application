@@ -7,6 +7,7 @@ Process Followed:
   3. Did Terraform init, Terraform fmt, terraform validate, terraform plan & terraform apply to deploy the resources
 
 Steps to Create AWS Infrastructure:
+
 VPC-subnets Module:
   1. create non-default vpc
   2. create non-default public subnets for web tier
@@ -61,3 +62,6 @@ Event-Bridge Module:
   4. create event bridge targets as lambda function (for stopping and starting the EC2 instances)
   5. create lambda permission to allow cloud watch event to invoke lambda functions at scheduled cron timings
 
+Clouadwatch-Dashboard Module:
+  1. create dashboard for app server autoscaling group for metrics CPUUtilization, NetworkIn, NetworkOut, StatusCheckFailed & StatusCheckFailed_Instance
+  2. create dashboard for web server autoscaling group for metrics CPUUtilization, NetworkIn, NetworkOut, StatusCheckFailed & StatusCheckFailed_Instance
