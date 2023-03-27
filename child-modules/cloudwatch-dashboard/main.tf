@@ -1,3 +1,4 @@
+#create dashboard for app server autoscaling group for metrics CPUUtilization, NetworkIn, NetworkOut, StatusCheckFailed & StatusCheckFailed_Instance
 resource "aws_cloudwatch_dashboard" "app-asg-performance" {
   dashboard_name = "${var.project-name}-app-asg-dashboard"
 
@@ -26,6 +27,7 @@ resource "aws_cloudwatch_dashboard" "app-asg-performance" {
   })
 }
 
+#create dashboard for web server autoscaling group for metrics CPUUtilization, NetworkIn, NetworkOut, StatusCheckFailed & StatusCheckFailed_Instance
 resource "aws_cloudwatch_dashboard" "web-asg-performance" {
   dashboard_name = "${var.project-name}-web-asg-dashboard"
 
