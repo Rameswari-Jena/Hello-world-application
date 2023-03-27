@@ -65,3 +65,7 @@ Event-Bridge Module:
 Clouadwatch-Dashboard Module:
   1. create dashboard for app server autoscaling group for metrics CPUUtilization, NetworkIn, NetworkOut, StatusCheckFailed & StatusCheckFailed_Instance
   2. create dashboard for web server autoscaling group for metrics CPUUtilization, NetworkIn, NetworkOut, StatusCheckFailed & StatusCheckFailed_Instance
+
+AWS-Backup module:
+  1. create a target vault to store aws backups
+  2. create a aws backup plan to backup all the resources created for hello world application
