@@ -1,6 +1,8 @@
 #create non-default vpc
 resource "aws_vpc" "testvpc" {
   cidr_block = var.vpc-cidr
+  enable_dns_support = true
+  enable_dns_hostnames = true
   tags = {
     Name = "${var.project-name}-vpc"
   }
@@ -25,7 +27,7 @@ resource "aws_subnet" "private_subnet" {
   count                   = length(var.private_subnets_cidr)
   cidr_block              = element(var.private_subnets_cidr, count.index)
   availability_zone       = element(var.availability_zones, count.index)
-  map_public_ip_on_launch = true
+  map_public_ip_on_launch = false
 
   tags = {
     Name = "${var.project-name}-${element(var.availability_zones, count.index)}-private-subnet"
