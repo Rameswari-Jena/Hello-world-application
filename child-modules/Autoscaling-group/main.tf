@@ -67,6 +67,7 @@ resource "aws_launch_configuration" "app-server-lc" {
   name_prefix   = "hello_world-app-lc"
   image_id      = data.aws_ami.amazon-linux-2.id
   instance_type = "t2.micro"
+  associate_public_ip_address = false
   security_groups = [data.terraform_remote_state.security_group.outputs.security_group.app_security_group_id]
   iam_instance_profile = data.terraform_remote_state.iam.outputs.iam.instance_profile_arn
   user_data     = file("app_user_data.sh")
