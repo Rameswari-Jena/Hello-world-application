@@ -81,9 +81,9 @@ resource "aws_launch_configuration" "app-server-lc" {
 resource "aws_autoscaling_group" "web-asg" {
   name                      = "web-ASG"
   launch_configuration = aws_launch_configuration.web-server-lc.id
-  min_size                  = 0
+  min_size                  = 2
   max_size                  = 5
-  desired_capacity          = 1
+  desired_capacity          = 2
   health_check_grace_period = 300
   health_check_type         = "ELB"
   vpc_zone_identifier       = [var.web_public_subnet_1, var.web_public_subnet_2]
@@ -102,9 +102,9 @@ resource "aws_autoscaling_group" "web-asg" {
 resource "aws_autoscaling_group" "app-asg" {
   name                      = "app-ASG"
   launch_configuration = aws_launch_configuration.app-server-lc.id
-  min_size                  = 0
+  min_size                  = 2
   max_size                  = 5
-  desired_capacity          = 1
+  desired_capacity          = 2
   health_check_grace_period = 300
   health_check_type         = "ELB"
   vpc_zone_identifier       = [var.app_private_subnet_1, var.app_private_subnet_2]
