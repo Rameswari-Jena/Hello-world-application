@@ -33,3 +33,13 @@ variable "public_subnet_names" {
   type        = list(string)
   description = "name of private subnets"
 }*/
+
+variable "us-east-1a-private-subnets" {
+  type        = list(string)
+  description = "us-east-1a-private-subnets"
+}
+
+variable "us-east-1b-private-subnets" {
+  type        = list(string)
+  description = "us-east-1b-private-subnets"
+}
